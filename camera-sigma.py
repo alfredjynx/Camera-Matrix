@@ -2,10 +2,6 @@ import numpy as np
 
 # Instalar a biblioteca cv2 pode ser um pouco demorado. Não deixe para ultima hora!
 import cv2 as cv
-import math
-
-
-
 
 def criar_indices(min_i, max_i, min_j, max_j):
     import itertools
@@ -14,10 +10,6 @@ def criar_indices(min_i, max_i, min_j, max_j):
     idx_j = np.array([e[1] for e in L])
     idx = np.vstack( (idx_i, idx_j) )
     return idx
-
-
-
-
 
 def run():
     # Essa função abre a câmera. Depois desta linha, a luz de câmera (se seu computador tiver) deve ligar.
@@ -34,7 +26,6 @@ def run():
         exit()
 
     R = np.array([[1, 0, 0], [0, 1, 0], [0, 0,1]])
-    i = 0
 
     deg = 5
 
