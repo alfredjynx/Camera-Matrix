@@ -54,14 +54,6 @@ def run():
 
         T = np.array([[1, 0, -(image.shape[0]/2)], [0, 1, -(image.shape[1]/2)], [0, 0,1]])
         T2 = np.array([[1, 0, (image.shape[0]/2)], [0, 1, (image.shape[1]/2)], [0, 0,1]])
-    
-        # if i>0:
-        #     # R = np.array([[np.sqrt(2)/2, -np.sqrt(2)/2, 0], [np.sqrt(2)/2, np.sqrt(2)/2, 0], [0, 0,1]])
-        #     R = np.array([[np.cos(np.radians(deg)), -np.sin(np.radians(deg)), 0], [np.sin(np.radians(deg)), np.cos(np.radians(deg)), 0], [0, 0,1]])
-        #     rot = R
-        #     for _ in range(i):
-        #         rot = rot @ R
-        #     R = rot
 
         A = T2 @ R @ T
 
@@ -87,10 +79,8 @@ def run():
             break
         elif k == ord('d'):
             R = rot @ R
-            # R = rot
         elif k == ord('a'):
             R = np.linalg.inv(rot) @ R
-            # R = np.linalg.inv(rot)
         
         # i+=1
 
