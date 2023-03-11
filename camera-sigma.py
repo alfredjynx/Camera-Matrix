@@ -82,8 +82,6 @@ def run():
         elif k == ord('a'):
             R = np.linalg.inv(rot) @ R
         
-        # i+=1
-
 
     # Ao sair do loop, vamos devolver cuidadosamente os recursos ao sistema!
     cap.release()
