@@ -55,6 +55,7 @@ O resto do processo é multiplicação de matrizes e aplicação de filtros para
 
 Então, é isso, nosso projeto realmente é mais simples do que ele aparente ser. Abaixo há uma versão comentada do código de multiplicação de matrizes, que eplica linha a linha o que está ocorrendo, além de uma imagem que foi furtada de nosso professor Tiago.
 
+
 <img src="camera_rodando.gif" width=300>
 
 

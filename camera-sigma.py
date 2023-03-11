@@ -25,7 +25,7 @@ def run():
         print("Não consegui abrir a câmera!")
         exit()
 
-    R = np.array([[1, 0, 0], [0, 1, 0], [0, 0,1]])
+    R = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
     deg = 5
 
