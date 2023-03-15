@@ -30,6 +30,8 @@ def run():
     deg = 5
 
     rot = np.array([[np.cos(np.radians(deg)), -np.sin(np.radians(deg)), 0], [np.sin(np.radians(deg)), np.cos(np.radians(deg)), 0], [0, 0,1]])
+    girar = True
+    jirar = False
 
     # Esse loop é igual a um loop de jogo: ele encerra quando apertamos 'q' no teclado.
     while True:
@@ -78,8 +80,20 @@ def run():
         if k == ord('q'):
             break
         elif k == ord('d'):
+            girar,jirar = False,False
             R = rot @ R
         elif k == ord('a'):
+            girar,jirar = False,False
+            R = np.linalg.inv(rot) @ R
+        elif k == ord('g'):
+            girar,jirar = True,False
+        elif k == ord('j'):
+            girar,jirar = False,True
+
+        if girar:
+            R = rot @ R
+        
+        if jirar:
             R = np.linalg.inv(rot) @ R
         
 

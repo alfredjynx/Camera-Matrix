@@ -1,6 +1,6 @@
 # Camera-Matrix
 
-Até o momento, fizemos transformações de formato em imagens. Fizemos, então, o mesmo em vídeos em tempo real.
+Até o momento, fizemos transformações de formato em imagens. Fizemos, então, o mesmo em vídeos em tempo real. Ao iniciar o programa, a câmera gira em sentido horário continuamente. Ao apertar 'j', o sentido muda. Você pode retomar o giro original ao paertar a tecla 'g'. Se a tecla 'a' for apertada, o giro cessa e você controla rotação a rotação o quanto a imagem está girada (em sentido anti-horário). A tecla 'd' realiza omeso processo, mas na direção contrária (sentido horário).
 
 A lógica é muito semelhante, com vídeos sendo imagens consecutivas mostradas em uma tela, basta realizar o processo de rotação com cada frame (imagem) que compõe vídeo. Nesse caso, as imagens que estavam sendo captadas pela câmera estavam sendo mostradas em tempo real, mas o mesmo seria possível com um vídeo já pré gravado.
 
