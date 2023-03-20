@@ -1,10 +1,10 @@
 # Camera-Matrix
 
-Até o momento, fizemos transformações de formato em imagens. Fizemos, então, o mesmo em vídeos em tempo real. Ao iniciar o programa, a câmera gira em sentido horário continuamente. Ao apertar 'j', o sentido muda. Você pode retomar o giro original ao paertar a tecla 'g'. Se a tecla 'a' for apertada, o giro cessa e você controla rotação a rotação o quanto a imagem está girada (em sentido anti-horário). A tecla 'd' realiza omeso processo, mas na direção contrária (sentido horário).
+Até o momento, fizemos transformações de formato em imagens. Fizemos, então, o mesmo em vídeos em tempo real.
 
 A lógica é muito semelhante, com vídeos sendo imagens consecutivas mostradas em uma tela, basta realizar o processo de rotação com cada frame (imagem) que compõe vídeo. Nesse caso, as imagens que estavam sendo captadas pela câmera estavam sendo mostradas em tempo real, mas o mesmo seria possível com um vídeo já pré gravado.
 
-O processo de rotação funciona em algumas etapas. Primeiramente, é necessário trasladar (mover sem distorcer) a imagem para o centro, isso é, centralizar a imagem no ponto (0,0). Realizamos isso ao utilizar uma matrix de translação com as seguintes medidas:
+O processo de rotação funciona em algumas etapas. Primeiramente, é necessário trasladar (mover sem distorcer) a imagem para o centro, isso é, centralizar a imagem no ponto (0,0). Realizamos isso ao utilizar uma matriz de translação com as seguintes medidas:
 
 $$
 T = 
@@ -17,10 +17,10 @@ $$
 
 Para que realizar essa translação? 
 
-        As imagens sempre são alteradas em relação ao centro do plano cartesiano no qual elas estão presentes, portanta, para rotacionar uma imagem em volta de seu eixo, temos que posicionar esse eixo no ponto de origem.
+        As imagens sempre são alteradas em relação ao centro do plano cartesiano no qual elas estão presentes, portanto, para rotacionar uma imagem em volta de seu eixo, temos que posicionar esse eixo no ponto de origem.
 
 
-Após isso, podemos realizar o processo de rotação a imagem. Escolhemos 1 grau como a medida de rotação graças ao elevado número de vezes que o programa roda por segundo, assim, diminuindo o pulo entre um frame e outro e deixando o vídeo mais suave. Assim, preenchemos os campos na matriz exemplo (colocada abaixo) e multiplicamos pela matriz de translação.
+Após isso, podemos realizar o processo de rotação a imagem. Escolhemos 1 grau como a medida de rotação graças ao elevado número de vezes que o programa roda por segundo, assim, diminuindo o pulo entre um frame e outro e deixando o vídeo mais suave. Preenchemos os campos na matriz exemplo (colocada abaixo) e multiplicamos pela matriz de translação.
 
 $$
 R = 
@@ -32,7 +32,7 @@ R =
 $$
 
 
-Após isso, é simplesmente uma questão de transladar a imagem de volta ao seu ponto original, ou seja:
+Após isso, é simplesmente uma questão de transladar a imagem de volta ao seu ponto original:
 
 $$
 T2 = 
@@ -45,21 +45,22 @@ $$
 
 Agora que o processo de tratamento das matrizes que irão iterar sob a matriz da imagem foi explicado, está na hora de tratar da matriz da imagem.
 
-Ela não é comum, tem uma dimensão de 2x(número de pixels). A primeira linha é a cordenada X de cada pixel, e a segunda é a cordenada Y. Para que seja possível realizar uma multiplicação matricial com as matrizes que estamos utilizando, é necessário o uso da função np.vstack(), que serve para adicionar uam fileira de 1s (ums) que tenha o mesmo comprimento das outras duas linhas abaixo delas. A sua utilidade é puramente pela questão da translação, pois sem ela não seria possível realizar o processo. 
+Ela não é comum, tem uma dimensão de 2x(número de pixels). A primeira linha é a cordenada X de cada pixel, e a segunda é a cordenada Y. Para que seja possível realizar uma multiplicação matricial com as matrizes que estamos utilizando (que realizam translações), é necessário o uso da função np.vstack(), que serve para adicionar uam fileira de 1s (ums) que tenha o mesmo comprimento das outras duas linhas. A sua utilidade é puramente pela questão da translação, pois sem ela não seria possível realizar o processo. 
 
-Mesmo assim, ainda há mais um truque para minimizar erros de arredondamento. A inversão do processo de multiplicação de matrizes é essencial na hora de realizar qualquer tipo e modificação. Ao invés de estarmos modificando uma imagem origem, estamos modificando uma saída para que ela volte a origem. Isso é necessário para impedir que erros de arredondamento se mostrem na tela. Uma imagem que é esticada não consegue preencher uma área maior do que sua original, já que não possui pixels o suficiente. Mas, uma imagem achatada consegue. A ideia é que o processo inverso não nos deixa sem pixels cobrindo a tela. 
+Mesmo assim, ainda há mais um passo, que serve para minimizar erros de arredondamento. A inversão do processo de multiplicação de matrizes é essencial na hora de realizar qualquer tipo e modificação. Ao invés de estarmos modificando uma imagem origem, estamos modificando uma saída para que ela volte a origem. Isso é necessário para impedir que erros de arredondamento se mostrem na tela. Uma imagem que é esticada não consegue preencher uma área maior do que sua original, já que não possui pixels o suficiente. Mas, uma imagem achatada consegue preencher um espaço menor. A ideia é que o processo inverso não nos deixa espaços vazios. 
 
-Dessa maneira, estamos tentando chegar da imagem modificada (image_) a original (image). No código isso fica mais explícito, pois realizamos o processo da multiplicação da mtriz inversa de Xd (imagem_) para chegar em X (imagem).
+Dessa maneira, estamos tentando chegar da imagem modificada (image_) a original (image). No código isso fica mais explícito, pois realizamos o processo da multiplicação da matriz inversa de A (responsável pelas modificações) por Xd (imagem_) para chegar em X (imagem).
 
-O resto do processo é multiplicação de matrizes e aplicação de filtros para que pixels fora da tela sejam ignorados. 
+O resto do processo é aplicação de filtros para que pixels fora da tela sejam ignorados. 
 
-Então, é isso, nosso projeto realmente é mais simples do que ele aparente ser. Abaixo há uma versão comentada do código de multiplicação de matrizes, que eplica linha a linha o que está ocorrendo, além de uma imagem que foi furtada de nosso professor Tiago.
+Mais uma coisa, ao iniciar o programa, a câmera gira em sentido horário continuamente. Ao apertar 'j', o sentido muda. Você pode retomar o giro original ao apertar a tecla 'g'. Se a tecla 'a' for pressionada, o giro cessa e você controla rotação a rotação o quanto a imagem está girada (em sentido anti-horário). A tecla 'd' realiza o mesmo processo, mas na direção contrária (sentido horário).
 
+Então, é isso, nosso projeto realmente é mais simples do que ele aparente ser. Abaixo há uma versão comentada do código de modificação da imagem, que explica linha a linha o que está ocorrendo, além de um gif que foi furtado de nosso professor Tiago.
 
 <img src="camera_rodando.gif" width=300>
 
 
-```python
+```py
 # array da imagem com a localização de todos os pixels
 image = np.array(frame).astype(float)/255
 
